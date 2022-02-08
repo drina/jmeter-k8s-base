@@ -8,6 +8,12 @@ ARG JMETER_CMD_RUNNER_URL="http://search.maven.org/remotecontent?filepath=kg/apc
 ARG JMETER_PLUGIN_URL="https://jmeter-plugins.org/get/" 
 ARG JMETER_PLUGIN_PATH="${JMETER_INSTALLATION_PATH}/lib/ext/jmeter-plugin-manager.jar"
 
+ENV http_proxy http://web-proxy.corp.hpecorp.net:8080
+ENV https_proxy http://web-proxy.corp.hpecorp.net:8080
+ENV no_proxy 15.194.232.200,169.254.169.254,.hpecorp.net,.hpe.com,.hp.com,127.0.0.1,localhost,/var/run/docker.sock
+
+ADD ./files/proxy /etc/apt/apt.conf.d/proxy
+
 ## Installing dependencies
 RUN apt-get update && \
     apt-get upgrade -y && \
